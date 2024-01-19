@@ -1,0 +1,17 @@
+"main"
+# sum the elements from one list. 
+MOV 0 register_1
+
+"loop"
+NOT input_register_1 register_0
+JNZ register_0 "return"
+
+LOAD input_register_0 register_0
+ADD register_0 register_1 register_1
+ADD input_register_1 -1 input_register_1
+ADD input_register_0 1 input_register_0
+
+JMP "loop"
+
+"return"
+MOV register_1 output_register_0

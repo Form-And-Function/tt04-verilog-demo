@@ -1,0 +1,55 @@
+"main"
+# input_register_0 contains n
+JNZ register_0 "pre-loop"
+MOV 0 output_register_0
+HLT
+
+"pre-loop"
+MOV 2 register_0
+JMP "upper-bound-sqrt"
+MOV *output_register_0 register_1
+
+"loop"
+
+
+    #if n == 2:
+    #    return True
+    #if n % 2 == 0:
+    #    return False
+    #for i in range(3, int(math.sqrt(n))+1, 2):
+    #    if n % i == 0:
+    #        return False
+    #return True
+
+"upper-bound-sqrt"
+CP input_register_0 register_0
+# set the maximum number of iterations
+MOV 10 register_0
+
+# make an initial guess
+MOV 1 register_1
+
+"sqrt-loop"
+
+# we want to find the root of x^2 - n.
+# we use newton's method.
+# x_{n+1} = x_n - f(x_n)/f'(x_n)
+# f(x) = x^2 - n
+# f'(x) = 2x
+# x_{n+1} = x_n - (x_n^2 - n)/(2x_n)
+# x_{n+1} = x_n - x_n/2 + n/(2x_n)
+# x_{n+1} = x_n/2 + n/(2x_n)
+# x_{n+1} = (x_n + n/x_n)/2
+
+
+
+JNZ register_0 "sqrt-loop-end"
+
+# if we've reached the maximum number of iterations, we're done
+"sqrt-loop-end"
+MOV *output_register_0 register_1
+HLT
+
+"divide"
+
+"divide-loop"
